@@ -102,6 +102,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# Custom User authentication model.
+# https://docs.djangoproject.com/en/1.8/ref/settings/#auth-user-model
+
+AUTH_USER_MODEL = 'members.User'
+
+
 # Local settings import
 try:
     from local_settings import *
