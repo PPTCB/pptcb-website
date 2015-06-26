@@ -3,7 +3,7 @@ from django.db import models
 
 class AbstractBaseModel(models.Model):
     """
-    Base model is the model used for the majority of models used in the website.
+    Abstract base model is the model used for the majority of models used in the website.
     """
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField('creation time', auto_now_add=True)
@@ -13,7 +13,7 @@ class AbstractBaseModel(models.Model):
         """
         Constructor override adds property cache to model instance.
         """
-        super(BaseModel, self).__init__(*args, **kwargs)
+        super(AbstractBaseModel, self).__init__(*args, **kwargs)
         self._property_cache = dict()
 
     def pre_save(self, is_new):
