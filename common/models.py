@@ -28,15 +28,29 @@ class AbstractBaseModel(models.Model):
         """
         pass
 
+    def pre_delete(self):
+        """
+        Code that is executed before the delete method.
+        """
+        pass
+
     def save(self, *args, **kwargs):
         """
         Save override resets property cache on model instance.
+        Also handles pre/post save events
         """
         is_new = False if self.pk else True
         self.pre_save(is_new)
         super(AbstractBaseModel, self).save(*args, **kwargs)
         self._property_cache = dict()
         self.post_save(is_new)
+
+    def delete(self, *args, **kwargs):
+        """
+        Delete override handles pre delete events
+        """
+        self.pre_delete()
+        super(AbstractBaseModel, self).delete(*args, **kwargs)
 
     def _get_property(self, name, setter):
         """
