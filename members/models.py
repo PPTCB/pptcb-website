@@ -68,7 +68,8 @@ class Director(Member):
 
 
 class Musician(Member):
-    pass
+    primary_instrument = models.ForeignKey(Instrument, related_name='primary_musicians')
+    other_instruments = models.ManyToManyField(Instrument, related_name='other_musicians')
 
 
 class StaffMember(Member):
