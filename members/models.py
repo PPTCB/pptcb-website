@@ -5,8 +5,9 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .managers import UserManager
+from common.models import AbstractBaseModel
 
-# Create your models here.
+
 class User(AbstractBaseUser, PermissionsMixin):
     """
     User class implements a fully featured User model with
@@ -52,3 +53,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Member(AbstractBaseModel):
+    pass
+
+
+class BoardMember(Member):
+    pass
+
+
+class Director(Member):
+    pass
+
+
+class Musician(Member):
+    pass
+
+
+class StaffMember(Member):
+    pass
