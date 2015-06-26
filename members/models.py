@@ -57,7 +57,38 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Member(AbstractBaseModel):
-    pass
+    user = models.OneToOneField(User)
+    roles = models.ManyToManyField('Role', related_name='members')
+
+    def post_save(self, is_new):
+        self._add_model_to_roles()
+
+    def pre_delete(self):
+        self._remove_model_from_roles()
+
+    def _add_model_to_roles(self):
+        """
+        Adds the model to the Role model automatically.
+        """
+        role = self._get_model_role()
+        if not self.roles.filter(pk=role.pk):
+            self.roles.add(role)
+
+    def _remove_model_from_roles(self, *args, **kwargs):
+        """
+        Removes the model to the Role model automatically. Seems redundant, but this is mostly for the models that
+        extend off of Member.
+        """
+        role = self._get_model_role()
+        if self.roles.filter(pk=role.pk):
+            self.roles.remove()
+
+    def _get_model_role(self):
+        """
+        Retrieves the role record for this model.
+        """
+        role_name = type(self).__name__
+        return Role.objects.get_or_create(name=role_name)
 
 
 class BoardMember(Member):
