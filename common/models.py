@@ -16,12 +16,27 @@ class AbstractBaseModel(models.Model):
         super(AbstractBaseModel, self).__init__(*args, **kwargs)
         self._property_cache = dict()
 
+    def pre_save(self, is_new):
+        """
+        Code that is executed before the save method.
+        """
+        pass
+
+    def post_save(self, is_new):
+        """
+        Code that is executed after the save method.
+        """
+        pass
+
     def save(self, *args, **kwargs):
         """
         Save override resets property cache on model instance.
         """
+        is_new = False if self.pk else True
+        self.pre_save(is_new)
         super(AbstractBaseModel, self).save(*args, **kwargs)
         self._property_cache = dict()
+        self.post_save(is_new)
 
     def _get_property(self, name, setter):
         """
