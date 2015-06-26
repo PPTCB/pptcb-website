@@ -8,4 +8,4 @@ class InstrumentGroup(AbstractBaseModel):
 
 
 class Instrument(AbstractBaseModel):
-    instrument_group = models.ForeignKey(InstrumentGroup)
+    instrument_group = models.ForeignKey(InstrumentGroup, related_name='instruments')
