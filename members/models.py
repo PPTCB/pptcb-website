@@ -74,3 +74,7 @@ class Musician(Member):
 
 class StaffMember(Member):
     pass
+
+
+class Role(AbstractBaseModel):
+    name = models.CharField(max_length=100, unique=True)
