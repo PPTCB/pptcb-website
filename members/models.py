@@ -27,6 +27,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
+    # Custom fields
+    roles = models.ManyToManyField('Role', related_name='users')
+    primary_instrument = models.ForeignKey(Instrument, null=True, related_name='primary_users')
+    other_instruments = models.ManyToManyField(Instrument, related_name='other_users')
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -56,57 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
-class Member(AbstractBaseModel):
-    user = models.OneToOneField(User)
-    roles = models.ManyToManyField('Role', related_name='members')
-
-    def post_save(self, is_new):
-        self._add_model_to_roles()
-
-    def pre_delete(self):
-        self._remove_model_from_roles()
-
-    def _add_model_to_roles(self):
-        """
-        Adds the model to the Role model automatically.
-        """
-        role = self._get_model_role()
-        if not self.roles.filter(pk=role.pk):
-            self.roles.add(role)
-
-    def _remove_model_from_roles(self, *args, **kwargs):
-        """
-        Removes the model to the Role model automatically. Seems redundant, but this is mostly for the models that
-        extend off of Member.
-        """
-        role = self._get_model_role()
-        if self.roles.filter(pk=role.pk):
-            self.roles.remove()
-
-    def _get_model_role(self):
-        """
-        Retrieves the role record for this model.
-        """
-        role_name = type(self).__name__
-        return Role.objects.get_or_create(name=role_name)
-
-
-class BoardMember(Member):
-    pass
-
-
-class Director(Member):
-    pass
-
-
-class Musician(Member):
-    primary_instrument = models.ForeignKey(Instrument, related_name='primary_musicians')
-    other_instruments = models.ManyToManyField(Instrument, related_name='other_musicians')
-
-
-class StaffMember(Member):
-    pass
-
-
 class Role(AbstractBaseModel):
     name = models.CharField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.name
