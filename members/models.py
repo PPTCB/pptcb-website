@@ -28,7 +28,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     # Custom fields
-    roles = models.ManyToManyField('Role', related_name='users')
     primary_instrument = models.ForeignKey(Instrument, null=True, related_name='primary_users')
     other_instruments = models.ManyToManyField(Instrument, related_name='other_users')
 
@@ -59,10 +58,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-class Role(AbstractBaseModel):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __unicode__(self):
-        return self.name
