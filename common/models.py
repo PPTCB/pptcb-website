@@ -1,4 +1,5 @@
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class AbstractBaseModel(models.Model):
@@ -61,6 +62,16 @@ class AbstractBaseModel(models.Model):
         except KeyError:
             self._property_cache[name] = setter()
             return self._property_cache[name]
+
+    class Meta:
+        abstract = True
+
+
+class AbstractMPTTBaseModel(MPTTModel, AbstractBaseModel):
+    """
+    Abstract MPTT Base Model is the base model to use for MPTT models.
+    """
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 
     class Meta:
         abstract = True
