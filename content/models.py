@@ -31,6 +31,10 @@ class Address(AbstractBaseModel):
 class Location(AbstractBaseModel):
     name = models.CharField(max_length=255)
     address = models.ForeignKey(Address)
+    phone_number_1 = models.CharField('primary phone number', max_length=30, default='', blank=True)
+    phone_number_2 = models.CharField('secondary phone number', max_length=30, default='', blank=True)
+    fax_number = models.CharField(max_length=30, default='', blank=True)
+    email = models.EmailField(null=True, blank=True)
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.address)
