@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .managers import UserManager
-from music.models import Instrument
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -25,9 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-
-    # Custom fields
-    instruments = models.ManyToManyField(Instrument, related_name='users')
 
     objects = UserManager()
 

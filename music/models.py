@@ -1,6 +1,7 @@
 from django.db import models
 
 from common.models import AbstractBaseModel, AbstractMPTTBaseModel
+from members import User
 
 
 class InstrumentGroup(AbstractMPTTBaseModel):
@@ -22,3 +23,4 @@ class InstrumentGroup(AbstractMPTTBaseModel):
 class Instrument(AbstractBaseModel):
     name = models.CharField(max_length=100, unique=True)
     instrument_group = models.ForeignKey(InstrumentGroup, related_name='instruments')
+    users = models.ManyToManyField(User, related_name='instruments')
