@@ -28,8 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     # Custom fields
-    primary_instrument = models.ForeignKey(Instrument, null=True, related_name='primary_users')
-    other_instruments = models.ManyToManyField(Instrument, related_name='other_users')
+    instruments = models.ManyToManyField(Instrument, related_name='users')
 
     objects = UserManager()
 
