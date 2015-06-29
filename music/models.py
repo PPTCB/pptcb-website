@@ -1,6 +1,7 @@
 from django.db import models
 
 from common.models import AbstractBaseModel, AbstractMPTTBaseModel
+from content.models import Event
 from members.models import User
 
 
@@ -24,3 +25,11 @@ class Instrument(AbstractBaseModel):
     name = models.CharField(max_length=100, unique=True)
     instrument_group = models.ForeignKey(InstrumentGroup, related_name='instruments')
     users = models.ManyToManyField(User, related_name='instruments')
+
+
+class Rehearsal(Event):
+    pass
+
+
+class Concert(Event):
+    pass
