@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .managers import UserManager
-from common.models import AbstractBaseModel
 from music.models import Instrument
 
 
