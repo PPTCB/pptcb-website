@@ -1,7 +1,7 @@
 from django.db import models
 
 from common.models import AbstractBaseModel, AbstractMPTTBaseModel
-from members import User
+from members.models import User
 
 
 class InstrumentGroup(AbstractMPTTBaseModel):
