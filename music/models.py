@@ -80,8 +80,34 @@ class MusicalWork(AbstractBaseModel):
 
 
 class Rehearsal(Event):
-    pass
+    musical_works = models.ManyToManyField(MusicalWork, through='RehearsalPlan', related_name='rehearsals')
+
+
+class ConcertType(AbstractBaseModel):
+    name = models.CharField(max_length=50, unique=True)
 
 
 class Concert(Event):
-    program_selections = models.ManyToManyField(MusicalWork, related_name='concerts')
+    musical_works = models.ManyToManyField(MusicalWork, through='ConcertProgram', related_name='concerts')
+    type = models.ForeignKey(ConcertType, related_name='concerts')
+    attendance_cost = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+
+
+class RehearsalPlan(models.Model):
+    rehearsal = models.ForeignKey(Rehearsal)
+    musical_work = models.ForeignKey(MusicalWork)
+    notes = models.TextField(default='')
+    order = models.SmallIntegerField(null=True, blank=True)
+    start_time = models.TimeField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('rehearsal', 'order')
+
+class ConcertProgram(models.Model):
+    concert = models.ForeignKey(Concert)
+    musical_work = models.ForeignKey(MusicalWork)
+    program_notes = models.TextField(default='')
+    order = models.SmallIntegerField(null=True, blank=True)
+
+    class Meta:
+        unique_together = (('concert', 'musical_work'), ('concert', 'order'))
