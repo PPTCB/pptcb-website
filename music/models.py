@@ -59,6 +59,9 @@ class MusicalWorkCategory(AbstractBaseModel):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'musical work categories'
+
 
 class MusicalWork(AbstractBaseModel):
     GRADE_CHOICES = (
