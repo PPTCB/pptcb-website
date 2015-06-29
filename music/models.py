@@ -7,6 +7,7 @@ from members.models import User
 
 class InstrumentGroup(AbstractMPTTBaseModel):
     name = models.CharField(max_length=100, unique=True)
+    concert_order = models.PositiveIntegerField(unique=True, null=True, blank=True)
 
     @property
     def all_instruments(self):
@@ -20,11 +21,18 @@ class InstrumentGroup(AbstractMPTTBaseModel):
         descendant_pks = [descendant.pk for descendant in descendants if descendant.is_active]
         return Instrument.objects.filter(instrument_group__in=descendant_pks).exclude(is_active=False)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Instrument(AbstractBaseModel):
     name = models.CharField(max_length=100, unique=True)
     instrument_group = models.ForeignKey(InstrumentGroup, related_name='instruments')
     users = models.ManyToManyField(User, related_name='instruments')
+    concert_order = models.PositiveIntegerField(unique=True, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Composer(AbstractBaseModel):
