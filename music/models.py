@@ -81,6 +81,7 @@ class MusicalWork(AbstractBaseModel):
 
 class Rehearsal(Event):
     musical_works = models.ManyToManyField(MusicalWork, through='RehearsalPlan', related_name='rehearsals')
+    notes = models.TextField(blank=True, default='')
 
 
 class ConcertType(AbstractBaseModel):
@@ -96,17 +97,18 @@ class Concert(Event):
 class RehearsalPlan(models.Model):
     rehearsal = models.ForeignKey(Rehearsal)
     musical_work = models.ForeignKey(MusicalWork)
-    notes = models.TextField(default='')
+    notes = models.TextField(blank=True, default='')
     order = models.SmallIntegerField(null=True, blank=True)
     start_time = models.TimeField(null=True, blank=True)
 
     class Meta:
         unique_together = ('rehearsal', 'order')
 
+
 class ConcertProgram(models.Model):
     concert = models.ForeignKey(Concert)
     musical_work = models.ForeignKey(MusicalWork)
-    program_notes = models.TextField(default='')
+    notes = models.TextField(blank=True, default='')
     order = models.SmallIntegerField(null=True, blank=True)
 
     class Meta:
