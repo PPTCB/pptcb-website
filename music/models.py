@@ -28,11 +28,28 @@ class Instrument(AbstractBaseModel):
 
 
 class Composer(AbstractBaseModel):
-    pass
+    first_name = models.CharField(max_length=30, blank=True, default='')
+    middle_name = models.CharField(max_length=30, blank=True, default='')
+    last_name = models.CharField(max_length=30)
+
+    @property
+    def full_name(self):
+        names = [self.first_name, self.middle_name, self.last_name]
+        names = [name.strip() for name in names if name.strip() != '']
+        return ' '.join(names)
+
+    def __unicode__(self):
+        return self.full_name
+
+    class Meta:
+        unique_together = ('first_name', 'middle_name', 'last_name')
 
 
 class MusicalWorkCategory(AbstractBaseModel):
     name = models.CharField(max_length=50, unique=True)
+
+    def __unicode__(self):
+        return self.name
 
 
 class MusicalWork(AbstractBaseModel):
