@@ -27,9 +27,36 @@ class Instrument(AbstractBaseModel):
     users = models.ManyToManyField(User, related_name='instruments')
 
 
+class Composer(AbstractBaseModel):
+    pass
+
+
+class MusicalWorkCategory(AbstractBaseModel):
+    name = models.CharField(max_length=50, unique=True)
+
+
+class MusicalWork(AbstractBaseModel):
+    GRADE_CHOICES = (
+        (1, 'I'),
+        (2, 'II'),
+        (3, 'III'),
+        (4, 'IV'),
+        (5, 'V'),
+        (6, 'VI'),
+    )
+
+    library_id = models.PositiveIntegerField(unique=True)
+    name = models.CharField(max_length=500)
+    composers = models.ManyToManyField(Composer, related_name='composed_works')
+    arrangers = models.ManyToManyField(Composer, related_name='arranged_works')
+    category = models.ForeignKey(MusicalWorkCategory, related_name='musical_works')
+    grade = models.PositiveSmallIntegerField(null=True, blank=True, choices=GRADE_CHOICES)
+    notes = models.TextField(blank=True, default='')
+
+
 class Rehearsal(Event):
     pass
 
 
 class Concert(Event):
-    pass
+    program_selections = models.ManyToManyField(MusicalWork, related_name='concerts')
