@@ -1,7 +1,86 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from common.intl import states
-from common.models import AbstractBaseModel
+from common.models import AbstractBaseModel, AbstractMPTTBaseModel
+
+
+class Page(AbstractMPTTBaseModel):
+    HOME_PAGE_SLUG = 'home'
+
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100)
+    override_url = models.CharField(max_length=1000, default='')
+
+    @cached_property
+    def full_name(self):
+        """
+        Display name with ancestors' names.
+        """
+        if self.parent:
+            if self.parent.is_home_page:
+                return self.name
+            else:
+                return self.parent.full_name + ' | ' + self.name
+        else:
+            return self.name
+
+    @cached_property
+    def is_home_page(self):
+        """
+        If this page is the home page of the website.
+        """
+        if not self.parent and self.slug.lower() == self.HOME_PAGE_SLUG:
+            return True
+        return False
+
+    @cached_property
+    def system_path(self):
+        """
+        System URL path.
+        """
+        if self.parent:
+            path = self.parent.system_path.strip('/')
+            path = path + '/' + self.slug
+        elif self.is_home_page:
+            return '/'
+        else:
+            path = self.slug
+        path = path.strip('/')
+        return "/%s/" % path
+
+    def pre_save(self, is_new):
+        # Need to clean the slug before database change.
+        self._clean_slug()
+
+    def _clean_slug(self):
+        """
+        Cleans the URL slug.
+        """
+        # If the slug does not exist or is blank, create one from title.
+        if not self.slug or self.slug.strip() == '':
+            self._generate_slug()
+        # Else force the user's input to a properly formatted slug.
+        else:
+            self.slug = self.url_friendly_string(self.slug)
+
+    def _generate_slug(self):
+        """
+        Makes a URL slug out of the title.
+        """
+        self.slug = self.url_friendly_string(self.title)
+
+    @staticmethod
+    def url_friendly_string(input_string):
+        """
+        Converts a string into a format that is URL friendly.
+        """
+        output = input_string.lower().strip().replace(' ', '-')
+        # TODO: replace invalid characters
+        return output
+
+    class Meta:
+        unique_together = (('title', 'parent'), ('slug', 'parent'))
 
 
 class Address(AbstractBaseModel):
