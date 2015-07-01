@@ -1,5 +1,25 @@
-- first_name: Test
-  last_name: User
+- first_name: Steve
+  last_name: Johnson
   email: none@none.com
   superuser: true
   password: aA123456
+
+- first_name: Tyrion
+  last_name: Lannister
+  email: imnotanimp@casterlyrock.net
+  password: ilikewine
+
+- first_name: Jon
+  last_name: Snow
+  email: whoismymom@thewall.gov
+  password: iknownothing
+
+- first_name: Eddard
+  last_name: Stark
+  email: toohonorable@winterfell.com
+  password: winteriscoming
+
+- first_name: Daenerys
+  last_name: Targaryen
+  email: motherofdragons@essos.org
+  password: bloodofmyblood

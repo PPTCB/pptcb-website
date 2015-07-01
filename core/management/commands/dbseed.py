@@ -25,7 +25,7 @@ class Command(BaseCommand):
     def seed_users(cls, base_directory):
         users = cls._load_yaml_file(base_directory, 'user')
         for user in users:
-            if user['superuser']:
+            if 'superuser' in user and user['superuser']:
                 User.objects.create_superuser(user['first_name'], user['last_name'], user['email'], user['password'])
             else:
                 User.objects.create_user(user['first_name'], user['last_name'], user['email'], user['password'])
