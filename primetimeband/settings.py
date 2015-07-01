@@ -113,6 +113,11 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'members.User'
 
 
+# Database seeds directory
+
+DATABASE_SEEDS_DIRECTORY = os.path.join(BASE_DIR, 'dbseed')
+
+
 # Local settings import
 try:
     from local_settings import *
