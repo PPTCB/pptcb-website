@@ -146,3 +146,6 @@ crashlytics-build.properties
 
 # MySQL Workbench EER Diagrams Backups
 *.mwb.bak
+
+# Real database seeds
+/dbseed/real/
