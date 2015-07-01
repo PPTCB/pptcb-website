@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from common.models import AbstractBaseModel, AbstractMPTTBaseModel
 from content.models import Event, Page
@@ -9,11 +10,8 @@ class InstrumentGroup(AbstractMPTTBaseModel):
     name = models.CharField(max_length=100, unique=True)
     concert_order = models.PositiveIntegerField(unique=True, null=True, blank=True)
 
-    @property
+    @cached_property
     def all_instruments(self):
-        return self._get_all_instruments()
-
-    def _get_all_instruments(self):
         """
         Retrieves all active instrument records that are a part of this group and its descendant groups.
         """
