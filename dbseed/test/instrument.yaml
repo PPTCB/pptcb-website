@@ -1,0 +1,104 @@
+- name: Piccolo
+  group: Flutes
+
+- name: Flute
+  group: Flutes
+
+- name: Alto Flute
+  group: Flutes
+
+- name: Oboe
+  group: Double Reeds
+
+- name: English Horn
+  group: Double Reeds
+
+- name: Bassoon
+  group: Double Reeds
+
+- name: Contrabassoon
+  group: Double Reeds
+  
+- name: Eb Clarinet
+  group: Clarinets
+  
+- name: Clarinet
+  group: Clarinets
+
+- name: Alto Clarinet
+  group: Clarinets
+
+- name: Bass Clarinet
+  group: Clarinets
+
+- name: Contralto Clarinet
+  group: Clarinets
+
+- name: Contrabass Clarinet
+  group: Clarinets
+
+- name: Soprano Saxophone
+  group: Saxophones
+
+- name: Alto Saxophone
+  group: Saxophones
+
+- name: Tenor Saxophone
+  group: Saxophones
+
+- name: Baritone Saxophone
+  group: Saxophones
+
+- name: Bass Saxophone
+  group: Saxophones
+
+- name: Cornet
+  group: Trumpets
+
+- name: Piccolo Trumpet
+  group: Trumpets
+
+- name: Trumpet
+  group: Trumpets
+
+- name: Flugelhorn
+  group: Trumpets
+
+- name: Bass Trumpet
+  group: Trumpets
+
+- name: Horn
+  group: Horns
+
+- name: Alto Trombone
+  group: Trombones
+
+- name: Trombone
+  group: Trombones
+
+- name: Bass Trombone
+  group: Trombones
+
+- name: Euphonium
+  group: Tubas
+
+- name: Tuba
+  group: Tubas
+
+- name: String Bass
+  group: Miscellaneous
+
+- name: Piano
+  group: Miscellaneous
+
+- name: Harp
+  group: Miscellaneous
+
+- name: Percussion
+  group: Percussion
+
+- name: Mallets
+  group: Percussion
+
+- name: Timpani
+  group: Percussion

@@ -21,6 +21,7 @@ class Command(BaseCommand):
         else:
             base_directory = os.path.join(settings.DATABASE_SEEDS_DIRECTORY, 'real')
         self.seed_instrument_groups(base_directory)
+        self.seed_instruments(base_directory)
         self.seed_users(base_directory)
 
     @classmethod
@@ -43,6 +44,16 @@ class Command(BaseCommand):
                 for child in group['children']:
                     InstrumentGroup.objects.create(name=child['name'], concert_order=cnt, parent=group_object)
                     cnt += 1
+
+    @classmethod
+    def seed_instruments(cls, base_directory):
+        groups = {group.name : group for group in InstrumentGroup.objects.all()}
+        instruments = cls._load_yaml_file(base_directory, 'instrument')
+        cnt = 1
+        for instrument in instruments:
+            Instrument.objects.create(name=instrument['name'], instrument_group=groups[instrument['group']],
+                                      concert_order=cnt)
+            cnt += 1
 
     @staticmethod
     def _load_yaml_file(base_directory, file_name):
