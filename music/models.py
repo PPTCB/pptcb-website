@@ -1,7 +1,7 @@
 from django.db import models
 
 from common.models import AbstractBaseModel, AbstractMPTTBaseModel
-from content.models import Event
+from content.models import Event, Page
 from members.models import User
 
 
@@ -116,3 +116,12 @@ class ConcertProgram(models.Model):
 
     class Meta:
         unique_together = (('concert', 'musical_work'), ('concert', 'order'))
+
+
+class ConcertPage(Page):
+    concert = models.OneToOneField(Concert, related_name='page')
+
+    def pre_save(self, is_new):
+        if not self.title or self.title.strip() == '':
+            self.title = self.concert.name
+        super(ConcertPage, self).pre_save(is_new)
