@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.management import BaseCommand
 
 from members.models import User
+from music.models import Instrument, InstrumentGroup
 
 
 class Command(BaseCommand):
@@ -19,6 +20,7 @@ class Command(BaseCommand):
             base_directory = os.path.join(settings.DATABASE_SEEDS_DIRECTORY, 'test')
         else:
             base_directory = os.path.join(settings.DATABASE_SEEDS_DIRECTORY, 'real')
+        self.seed_instrument_groups(base_directory)
         self.seed_users(base_directory)
 
     @classmethod
@@ -29,6 +31,18 @@ class Command(BaseCommand):
                 User.objects.create_superuser(user['first_name'], user['last_name'], user['email'], user['password'])
             else:
                 User.objects.create_user(user['first_name'], user['last_name'], user['email'], user['password'])
+
+    @classmethod
+    def seed_instrument_groups(cls, base_directory):
+        instrument_groups = cls._load_yaml_file(base_directory, 'instrument_group')
+        cnt = 1
+        for group in instrument_groups:
+            group_object = InstrumentGroup.objects.create(name=group['name'], concert_order=cnt)
+            cnt += 1
+            if 'children' in group:
+                for child in group['children']:
+                    InstrumentGroup.objects.create(name=child['name'], concert_order=cnt, parent=group_object)
+                    cnt += 1
 
     @staticmethod
     def _load_yaml_file(base_directory, file_name):
