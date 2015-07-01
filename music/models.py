@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.functional import cached_property
 
-from common.models import AbstractBaseModel, AbstractMPTTBaseModel
+from core.models import AbstractBaseModel, AbstractMPTTBaseModel
 from content.models import Event, Page
 from members.models import User
 

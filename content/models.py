@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.functional import cached_property
 
-from common.intl import states
-from common.models import AbstractBaseModel, AbstractMPTTBaseModel
+from core.intl import states
+from core.models import AbstractBaseModel, AbstractMPTTBaseModel
 
 
 class Page(AbstractMPTTBaseModel):
