@@ -3,23 +3,34 @@
   email: none@none.com
   superuser: true
   password: aA123456
+  instruments:
+  - name: Tuba
+  - name: Trombone
 
 - first_name: Tyrion
   last_name: Lannister
   email: imnotanimp@casterlyrock.net
   password: ilikewine
+  instruments:
+  - name: Bassoon
 
 - first_name: Jon
   last_name: Snow
   email: whoismymom@thewall.gov
   password: iknownothing
+  instruments:
+  - name: Percussion
 
 - first_name: Eddard
   last_name: Stark
   email: toohonorable@winterfell.com
   password: winteriscoming
+  instruments:
+  - name: Trumpet
 
 - first_name: Daenerys
   last_name: Targaryen
   email: motherofdragons@essos.org
   password: bloodofmyblood
+  instruments:
+  - name: Clarinet
