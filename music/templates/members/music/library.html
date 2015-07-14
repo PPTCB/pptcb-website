@@ -1,3 +1,39 @@
 {% extends 'members/base.html' %}
 
+{% block page_title %}Music Library{% endblock %}
 {% block page_header %}Music Library{% endblock %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Composer(s)</th>
+                    <th>Arranger(s)</th>
+                    <th>Category</th>
+                    <th>Grade</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for musical_work in musical_works %}
+                    <tr>
+                        <td>{{ musical_work.library_id }}</td>
+                        <td>{{ musical_work.name }}</td>
+                        <td>{{ musical_work.composers_display_list }}</td>
+                        <td>{{ musical_work.arrangers_display_list }}</td>
+                        <td>{{ musical_work.category.name }}</td>
+                        <td>{{ musical_work.grade }}</td>
+                        <td>{{ musical_work.notes }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7">No records found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
