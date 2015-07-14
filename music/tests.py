@@ -19,7 +19,7 @@ class MusicalWorkTests(TestCase):
         test_category = MusicalWorkCategory.objects.create(name='Classical')
         test_musical_work = MusicalWork.objects.create(library_id=102, name='Symphony No. 5', grade=6,
                                                        category=test_category)
-        self.assertEqual(test_musical_work.composers_display_list, 'None')
+        self.assertEqual(test_musical_work.composers_display_list, '')
 
     def test_composers_display_list_one_composer(self):
         test_category = MusicalWorkCategory.objects.create(name='Classical')

@@ -94,7 +94,7 @@ class MusicalWork(AbstractBaseModel):
         elif collection.count() == 1:
             return collection.all()[0].full_name
         else:
-            return 'None'
+            return ''
 
 
 class Rehearsal(Event):
