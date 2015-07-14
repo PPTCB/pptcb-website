@@ -38,3 +38,33 @@ class MusicalWorkTests(TestCase):
         test_musical_work.composers.add(test_composer1)
         test_musical_work.composers.add(test_composer2)
         self.assertEqual(test_musical_work.composers_display_list, 'Composer, Doe')
+
+
+class ComposerTests(TestCase):
+
+    def test_name_from_string_one_name(self):
+        test_name = 'Beethoven'
+        name_dict = Composer.name_from_string(test_name)
+        self.assertNotIn('first_name', name_dict)
+        self.assertNotIn('middle_name', name_dict)
+        self.assertIn('last_name', name_dict)
+        self.assertEqual(name_dict['last_name'], test_name)
+
+    def test_name_from_string_two_names(self):
+        test_name = 'George Harrison'
+        name_dict = Composer.name_from_string(test_name)
+        self.assertIn('first_name', name_dict)
+        self.assertNotIn('middle_name', name_dict)
+        self.assertIn('last_name', name_dict)
+        self.assertEqual(name_dict['first_name'], 'George')
+        self.assertEqual(name_dict['last_name'], 'Harrison')
+
+    def test_name_from_string_three_names(self):
+        test_name = 'Johann Sebastian Bach'
+        name_dict = Composer.name_from_string(test_name)
+        self.assertIn('first_name', name_dict)
+        self.assertIn('middle_name', name_dict)
+        self.assertIn('last_name', name_dict)
+        self.assertEqual(name_dict['first_name'], 'Johann')
+        self.assertEqual(name_dict['middle_name'], 'Sebastian')
+        self.assertEqual(name_dict['last_name'], 'Bach')

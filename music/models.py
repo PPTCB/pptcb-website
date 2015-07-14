@@ -44,6 +44,18 @@ class Composer(AbstractBaseModel):
         names = [name.strip() for name in names if name.strip() != '']
         return ' '.join(names)
 
+    @staticmethod
+    def name_from_string(name):
+        names = name.strip().split()
+        if len(names) == 0:
+            return dict()
+        elif len(names) == 1:
+            return {'last_name': names[0]}
+        elif len(names) == 2:
+            return {'first_name': names[0], 'last_name': names[1]}
+        else:
+            return {'first_name': names[0], 'middle_name': ' '.join(names[1:-1]) , 'last_name': names[-1]}
+
     def __unicode__(self):
         return self.full_name
 
