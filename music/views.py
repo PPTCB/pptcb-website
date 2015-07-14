@@ -7,7 +7,7 @@ def concerts(request):
 
 
 def library(request):
-    return HttpResponse('library')
+    return render(request, 'members/music/library.html')
 
 
 def instruments(request):
