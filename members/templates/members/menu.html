@@ -1,12 +1,12 @@
 <ul class="nav nav-sidebar">
     <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>-->
-    <li><a href="{% url 'members:index' %}">Dashboard</a></li>
+    <li{% if full_url_name == 'members:index' %} class="active"{% endif %}><a href="{% url 'members:index' %}">Dashboard</a></li>
 </ul>
 
 {% if 'music' in installed_apps %}
     <ul class="nav nav-sidebar">
-        <li><a href="{% url 'members:music:concerts' %}">Concerts</a></li>
-        <li><a href="{% url 'members:music:library' %}">Library</a></li>
-        <li><a href="{% url 'members:music:instruments' %}">Instruments</a></li>
+        <li{% if full_url_name == 'members:music:concerts' %} class="active"{% endif %}><a href="{% url 'members:music:concerts' %}">Concerts</a></li>
+        <li{% if full_url_name == 'members:music:library' %} class="active"{% endif %}><a href="{% url 'members:music:library' %}">Library</a></li>
+        <li{% if full_url_name == 'members:music:instruments' %} class="active"{% endif %}><a href="{% url 'members:music:instruments' %}">Instruments</a></li>
     </ul>
 {% endif %}
