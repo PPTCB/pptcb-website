@@ -73,12 +73,16 @@ class Command(BaseCommand):
             category, created = MusicalWorkCategory.objects.get_or_create(name=work['category'])
             musical_work = MusicalWork.objects.create(library_id=work['library_id'], name=work['name'],
                                                       category=category, grade=work['grade'], notes=work['notes'])
-            for person in work['composers']:
-                composer, created = Composer.objects.get_or_create(**Composer.name_from_string(person))
-                musical_work.composers.add(composer)
-            for person in work['arrangers']:
-                composer, created = Composer.objects.get_or_create(**Composer.name_from_string(person))
-                musical_work.arrangers.add(composer)
+            for type in ['composers', 'arrangers']:
+                for person in work[type]:
+                    if isinstance(person, dict):
+                        composer, created = Composer.objects.get_or_create(**person)
+                    else:
+                        composer, created = Composer.objects.get_or_create(**Composer.name_from_string(person))
+                    if type == 'composers':
+                        musical_work.composers.add(composer)
+                    else:
+                        musical_work.arrangers.add(composer)
 
 
     @staticmethod

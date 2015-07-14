@@ -22,7 +22,8 @@
   grade: 2
   notes: This song does not exist.
   composers:
-  - Ludwig von Beethoven
+  - first_name: Ludwig von
+    last_name: Beethoven
   - Johann Sebastian Bach
   arrangers:
   - Gustav Mahler
