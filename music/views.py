@@ -1,3 +1,14 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+
+def concerts(request):
+    return HttpResponse('concerts')
+
+
+def library(request):
+    return HttpResponse('library')
+
+
+def instruments(request):
+    return HttpResponse('instruments')
