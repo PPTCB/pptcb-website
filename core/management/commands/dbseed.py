@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management import BaseCommand
 
 from members.models import User
-from music.models import Instrument, InstrumentGroup
+from music.models import Instrument, InstrumentGroup, MusicalWorkCategory, MusicalWork, Composer
 
 
 class Command(BaseCommand):
@@ -23,6 +23,7 @@ class Command(BaseCommand):
         self.seed_instrument_groups(base_directory)
         self.seed_instruments(base_directory)
         self.seed_users(base_directory)
+        self.seed_musical_works(base_directory)
 
     @classmethod
     def seed_users(cls, base_directory):
@@ -58,6 +59,27 @@ class Command(BaseCommand):
             Instrument.objects.create(name=instrument['name'], instrument_group=groups[instrument['group']],
                                       concert_order=cnt)
             cnt += 1
+
+    @classmethod
+    def seed_musical_works(cls, base_directory):
+        works = cls._load_yaml_file(base_directory, 'musical_work')
+        for work in works:
+            if 'notes' not in work:
+                work['notes'] = ''
+            if 'composers' not in work:
+                work['composers'] = []
+            if 'arrangers' not in work:
+                work['arrangers'] = []
+            category, created = MusicalWorkCategory.objects.get_or_create(name=work['category'])
+            musical_work = MusicalWork.objects.create(library_id=work['library_id'], name=work['name'],
+                                                      category=category, grade=work['grade'], notes=work['notes'])
+            for person in work['composers']:
+                composer, created = Composer.objects.get_or_create(**Composer.name_from_string(person))
+                musical_work.composers.add(composer)
+            for person in work['arrangers']:
+                composer, created = Composer.objects.get_or_create(**Composer.name_from_string(person))
+                musical_work.arrangers.add(composer)
+
 
     @staticmethod
     def _load_yaml_file(base_directory, file_name):

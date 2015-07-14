@@ -1,0 +1,29 @@
+---
+- name: Pictures at an Exhibition
+  library_id: 1
+  category: Classical
+  grade: 5
+  notes: Missing Horn 3 part
+  composers:
+  - Modest Mussorgsky
+  arrangers:
+  - Maurice Ravel
+
+- name: The Planets
+  library_id: 2
+  category: Classical
+  grade: 6
+  composers:
+  - Gustav Holst
+
+- name: Multiple Names Test
+  library_id: 3
+  category: Rock
+  grade: 2
+  notes: This song does not exist.
+  composers:
+  - Ludwig von Beethoven
+  - Johann Sebastian Bach
+  arrangers:
+  - Gustav Mahler
+  - George Harrison
