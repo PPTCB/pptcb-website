@@ -79,6 +79,23 @@ class MusicalWork(AbstractBaseModel):
     grade = models.PositiveSmallIntegerField(null=True, blank=True, choices=GRADE_CHOICES)
     notes = models.TextField(blank=True, default='')
 
+    @property
+    def composers_display_list(self):
+        return self._person_display_list(self.composers)
+
+    @property
+    def arrangers_display_list(self):
+        return self._person_display_list(self.arrangers)
+
+    @staticmethod
+    def _person_display_list(collection):
+        if collection.count() > 1:
+            return ', '.join([person.last_name for person in collection.all()])
+        elif collection.count() == 1:
+            return collection.all()[0].full_name
+        else:
+            return 'None'
+
 
 class Rehearsal(Event):
     musical_works = models.ManyToManyField(MusicalWork, through='RehearsalPlan', related_name='rehearsals')
