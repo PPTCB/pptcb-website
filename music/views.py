@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import MusicalWork, MusicalWorkCategory
+from .models import MusicalWork, MusicalWorkCategory, Composer
 
 
 def concerts(request):
@@ -27,6 +27,9 @@ def library(request):
 
     # Get pre-existing categories
     context['musical_work_categories'] = MusicalWorkCategory.objects.filter(is_active=True).order_by('name')
+
+    # Get pre-existing composers
+    context['composers'] = Composer.objects.filter(is_active=True).order_by('last_name', 'first_name', 'middle_name')
 
     # Render template
     return render(request, 'members/music/library.html', context)

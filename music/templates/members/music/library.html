@@ -96,6 +96,28 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="add_work_composers">Composers</label>
+                    <select class="form-control" id="add_work_composers" multiple size="10">
+                        {% for composer in composers %}
+                            <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="add_work_arrangers">Arrangers</label>
+                    <select class="form-control" id="add_work_arrangers" multiple size="10">
+                        {% for composer in composers %}
+                            <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
     </form>
 {% endblock %}
 
