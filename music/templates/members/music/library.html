@@ -79,7 +79,7 @@
                             <label for="add_work_category">Category</label>
                             <select class="form-control" id="add_work_category">
                                 {% for category in musical_work_categories %}
-                                    <option value="{{ category.value }}">{{ category.display }}</option>
+                                    <option value="{{ category.pk }}">{{ category.name }}</option>
                                 {% endfor %}
                                 <option value="new">New Category</option>
                             </select>

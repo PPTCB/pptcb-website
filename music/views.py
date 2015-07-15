@@ -26,8 +26,7 @@ def library(request):
                                              for choice in MusicalWork.GRADE_CHOICES]
 
     # Get pre-existing categories
-    context['musical_work_categories'] = [{'display': category.name, 'value': category.pk} for category in
-                                          MusicalWorkCategory.objects.filter(is_active=True).order_by('name')]
+    context['musical_work_categories'] = MusicalWorkCategory.objects.filter(is_active=True).order_by('name')
 
     # Render template
     return render(request, 'members/music/library.html', context)
