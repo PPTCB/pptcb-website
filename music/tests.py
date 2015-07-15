@@ -15,21 +15,21 @@ class InstrumentGroupTests(TestCase):
 
 class MusicalWorkTests(TestCase):
 
-    def test_composers_display_list_no_composer(self):
+    def test_composers_short_display_no_composer(self):
         test_category = MusicalWorkCategory.objects.create(name='Classical')
         test_musical_work = MusicalWork.objects.create(library_id=102, name='Symphony No. 5', grade=6,
                                                        category=test_category)
-        self.assertEqual(test_musical_work.composers_display_list, '')
+        self.assertEqual(test_musical_work.composers_short_display, '')
 
-    def test_composers_display_list_one_composer(self):
+    def test_composers_short_display_one_composer(self):
         test_category = MusicalWorkCategory.objects.create(name='Classical')
         test_musical_work = MusicalWork.objects.create(library_id=102, name='Symphony No. 5', grade=6,
                                                        category=test_category)
         test_composer = Composer.objects.create(first_name='Test', last_name='Composer')
         test_musical_work.composers.add(test_composer)
-        self.assertEqual(test_musical_work.composers_display_list, 'Test Composer')
+        self.assertEqual(test_musical_work.composers_short_display, 'Test Composer')
 
-    def test_composers_display_list_multiple_composers(self):
+    def test_composers_short_display_multiple_composers(self):
         test_category = MusicalWorkCategory.objects.create(name='Classical')
         test_musical_work = MusicalWork.objects.create(library_id=102, name='Symphony No. 5', grade=6,
                                                        category=test_category)
@@ -37,7 +37,7 @@ class MusicalWorkTests(TestCase):
         test_composer2 = Composer.objects.create(first_name='John', last_name='Doe')
         test_musical_work.composers.add(test_composer1)
         test_musical_work.composers.add(test_composer2)
-        self.assertEqual(test_musical_work.composers_display_list, 'Composer, Doe')
+        self.assertEqual(test_musical_work.composers_short_display, 'Composer, Doe')
 
 
 class ComposerTests(TestCase):

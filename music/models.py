@@ -92,15 +92,15 @@ class MusicalWork(AbstractBaseModel):
     notes = models.TextField(blank=True, default='')
 
     @property
-    def composers_display_list(self):
-        return self._person_display_list(self.composers)
+    def composers_short_display(self):
+        return self._person_short_display(self.composers)
 
     @property
-    def arrangers_display_list(self):
-        return self._person_display_list(self.arrangers)
+    def arrangers_short_display(self):
+        return self._person_short_display(self.arrangers)
 
     @staticmethod
-    def _person_display_list(collection):
+    def _person_short_display(collection):
         if collection.count() > 1:
             return ', '.join([person.last_name for person in collection.all()])
         elif collection.count() == 1:
