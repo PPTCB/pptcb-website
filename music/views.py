@@ -11,6 +11,9 @@ def concerts(request):
 def library(request):
     context = dict()
 
+    # Get active tab
+    context['active_tab'] = request.POST.get('active_tab', 'view-library')
+
     # Get active musical works, ordered by their library IDs
     context['musical_works'] = MusicalWork.objects.select_related('category')\
         .prefetch_related('composers', 'arrangers').order_by('library_id')
