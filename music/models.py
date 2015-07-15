@@ -92,6 +92,10 @@ class MusicalWork(AbstractBaseModel):
     notes = models.TextField(blank=True, default='')
 
     @property
+    def grade_display(self):
+        return self.get_grade_display()
+
+    @property
     def composers_long_display(self):
         return self._person_long_display(self.composers)
 
