@@ -8,20 +8,20 @@
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation"{% if active_tab == 'view-library' %} class="active"{% endif %}>
-                <a href="#view-library" aria-controls="view-library" role="tab" data-toggle="tab">View Library</a>
+            <li role="presentation"{% if active_tab == 'view_library' %} class="active"{% endif %}>
+                <a href="#view_library" aria-controls="view_library" role="tab" data-toggle="tab">View Library</a>
             </li>
-            <li role="presentation"{% if active_tab == 'add-work' %} class="active"{% endif %}>
-                <a href="#add-work" aria-controls="add-work" role="tab" data-toggle="tab">Add Musical Work</a>
+            <li role="presentation"{% if active_tab == 'add_work' %} class="active"{% endif %}>
+                <a href="#add_work" aria-controls="add_work" role="tab" data-toggle="tab">Add Musical Work</a>
             </li>
-            <li role="presentation"{% if active_tab == 'add-composer' %} class="active"{% endif %}>
-                <a href="#add-composer" aria-controls="add-composer" role="tab" data-toggle="tab">Add Composer</a>
+            <li role="presentation"{% if active_tab == 'add_composer' %} class="active"{% endif %}>
+                <a href="#add_composer" aria-controls="add_composer" role="tab" data-toggle="tab">Add Composer</a>
             </li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'view-library' %} active{% endif %}" id="view-library">
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'view_library' %} active{% endif %}" id="view_library">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -55,9 +55,10 @@
                     </table>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'add-work' %} active{% endif %}" id="add-work">
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'add_work' %} active{% endif %}" id="add_work">
                 <form>
                     {% csrf_token %}
+                    <input type="hidden" name="function" value="add_work">
                     <div class="row">
                         <div class="col-md-1">
                             <div class="form-group">
@@ -143,9 +144,10 @@
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'add-composer' %} active{% endif %}" id="add-composer">
-                <form>
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'add_composer' %} active{% endif %}" id="add_composer">
+                <form role="form" method="post">
                     {% csrf_token %}
+                    <input type="hidden" name="function" value="add_composer">
                     <div class="row">
                         {% for field in composer_form %}
                             <div class="col-md-2">
