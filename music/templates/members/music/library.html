@@ -1,4 +1,5 @@
 {% extends 'members/base.html' %}
+{% load staticfiles %}
 
 {% block page_title %}Music Library{% endblock %}
 {% block page_header %}Music Library{% endblock %}
@@ -36,4 +37,68 @@
             </tbody>
         </table>
     </div>
+
+    <h2 class="sub-header">Add a Musical Work</h2>
+    <form>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="add_work_library_id">Library ID</label>
+                    <input type="input" class="form-control" id="add_work_library_id" placeholder="{{ musical_works_next_library_id }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="add_work_name">Name of Work</label>
+                    <input type="input" class="form-control" id="add_work_name">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="add_work_grade">Difficulty Grade</label>
+                    <select class="form-control" id="add_work_grade">
+                        <option>N/A</option>
+                        {% for choice in musical_work_grade_choices %}
+                            <option value="{{ choice.value }}">{{ choice.display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="add_work_notes">Notes</label>
+                    <textarea class="form-control" id="add_work_notes" rows="5" style="resize: none"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="add_work_category">Category</label>
+                            <select class="form-control" id="add_work_category">
+                                {% for category in musical_work_categories %}
+                                    <option value="{{ category.value }}">{{ category.display }}</option>
+                                {% endfor %}
+                                <option value="new">New Category</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group hidden">
+                            <label for="add_work_new_category">New Category</label>
+                            <input type="input" class="form-control" id="add_work_new_category">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'members/js/library.js' %}"></script>
 {% endblock %}
