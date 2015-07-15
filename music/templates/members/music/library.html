@@ -5,120 +5,137 @@
 {% block page_header %}Music Library{% endblock %}
 
 {% block content %}
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Composer(s)</th>
-                    <th>Arranger(s)</th>
-                    <th>Category</th>
-                    <th>Grade</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for musical_work in musical_works %}
-                    <tr>
-                        <td>{{ musical_work.library_id }}</td>
-                        <td>{{ musical_work.name }}</td>
-                        <td><span title="{{ musical_work.composers_long_display }}">{{ musical_work.composers_short_display }}</span></td>
-                        <td><span title="{{ musical_work.arrangers_long_display }}">{{ musical_work.arrangers_short_display }}</span></td>
-                        <td>{{ musical_work.category.name }}</td>
-                        <td>{{ musical_work.grade_display }}</td>
-                        <td>{{ musical_work.notes }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="7">No records found.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#view-library" aria-controls="view-library" role="tab" data-toggle="tab">View Library</a>
+            </li>
+            <li role="presentation">
+                <a href="#add-work" aria-controls="add-work" role="tab" data-toggle="tab">Add Musical Work</a>
+            </li>
+        </ul>
 
-    <h2 class="sub-header">Add a Musical Work</h2>
-    <form>
-        <div class="row">
-            <div class="col-md-1">
-                <div class="form-group">
-                    <label for="add_work_library_id">Library ID</label>
-                    <input type="input" class="form-control" id="add_work_library_id" placeholder="{{ musical_works_next_library_id }}">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="view-library">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Composer(s)</th>
+                                <th>Arranger(s)</th>
+                                <th>Category</th>
+                                <th>Grade</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for musical_work in musical_works %}
+                                <tr>
+                                    <td>{{ musical_work.library_id }}</td>
+                                    <td>{{ musical_work.name }}</td>
+                                    <td><span title="{{ musical_work.composers_long_display }}">{{ musical_work.composers_short_display }}</span></td>
+                                    <td><span title="{{ musical_work.arrangers_long_display }}">{{ musical_work.arrangers_short_display }}</span></td>
+                                    <td>{{ musical_work.category.name }}</td>
+                                    <td>{{ musical_work.grade_display }}</td>
+                                    <td>{{ musical_work.notes }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="7">No records found.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="add_work_name">Name of Work</label>
-                    <input type="input" class="form-control" id="add_work_name">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="add_work_grade">Difficulty Grade</label>
-                    <select class="form-control" id="add_work_grade">
-                        <option>N/A</option>
-                        {% for choice in musical_work_grade_choices %}
-                            <option value="{{ choice.value }}">{{ choice.display }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="add_work_notes">Notes</label>
-                    <textarea class="form-control" id="add_work_notes" rows="5" style="resize: none"></textarea>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="add_work_category">Category</label>
-                            <select class="form-control" id="add_work_category">
-                                {% for category in musical_work_categories %}
-                                    <option value="{{ category.pk }}">{{ category.name }}</option>
-                                {% endfor %}
-                                <option value="new">New Category</option>
-                            </select>
+            <div role="tabpanel" class="tab-pane" id="add-work">
+                <form>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="add_work_library_id">Library ID</label>
+                                <input type="input" class="form-control" id="add_work_library_id" placeholder="{{ musical_works_next_library_id }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="add_work_name">Name of Work</label>
+                                <input type="input" class="form-control" id="add_work_name">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="add_work_grade">Difficulty Grade</label>
+                                <select class="form-control" id="add_work_grade">
+                                    <option>N/A</option>
+                                    {% for choice in musical_work_grade_choices %}
+                                        <option value="{{ choice.value }}">{{ choice.display }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group hidden">
-                            <label for="add_work_new_category">New Category</label>
-                            <input type="input" class="form-control" id="add_work_new_category">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="add_work_notes">Notes</label>
+                                <textarea class="form-control" id="add_work_notes" rows="5" style="resize: none"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="add_work_category">Category</label>
+                                        <select class="form-control" id="add_work_category">
+                                            {% for category in musical_work_categories %}
+                                                <option value="{{ category.pk }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                            <option value="new">New Category</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group hidden">
+                                        <label for="add_work_new_category">New Category</label>
+                                        <input type="input" class="form-control" id="add_work_new_category">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="add_work_composers">Composers</label>
+                                <select class="form-control" id="add_work_composers" multiple size="10">
+                                    {% for composer in composers %}
+                                        <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="add_work_arrangers">Arrangers</label>
+                                <select class="form-control" id="add_work_arrangers" multiple size="10">
+                                    {% for composer in composers %}
+                                        <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="add_work_composers">Composers</label>
-                    <select class="form-control" id="add_work_composers" multiple size="10">
-                        {% for composer in composers %}
-                            <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="add_work_arrangers">Arrangers</label>
-                    <select class="form-control" id="add_work_arrangers" multiple size="10">
-                        {% for composer in composers %}
-                            <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
 {% endblock %}
 
 {% block javascript %}
