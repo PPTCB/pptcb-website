@@ -1,5 +1,5 @@
 {% extends 'members/base.html' %}
-{% load staticfiles %}
+{% load staticfiles widget_tweaks %}
 
 {% block page_title %}Music Library{% endblock %}
 {% block page_header %}Music Library{% endblock %}
@@ -145,24 +145,21 @@
             <div role="tabpanel" class="tab-pane{% if active_tab == 'add-composer' %} active{% endif %}" id="add-composer">
                 <form>
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="add_composer_first_name">First Name</label>
-                                <input type="input" class="form-control" id="add_composer_first_name"">
+                        {% for field in composer_form %}
+                            <div class="col-md-2">
+                                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                                    <label for="{{ composer_form.first_name.id_for_label }}">{{ field.label }}</label>
+                                    {{ composer_form.first_name|add_class:"form-control" }}
+                                    {% if field.errors %}
+                                        <span class="help-block">
+                                            {% for error in field.errors %}{{ error }}{% endfor %}
+                                        </span>
+                                    {% else %}
+                                        <p class="help-block"><small>{{ field.help_text }}</small></p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="add_composer_middle_name">Middle Name</label>
-                                <input type="input" class="form-control" id="add_composer_middle_name"">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="add_composer_last_name">Last Name</label>
-                                <input type="input" class="form-control" id="add_composer_last_name"">
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="row">
                         <div class="col-md-12">

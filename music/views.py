@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .forms import ComposerForm
 from .models import MusicalWork, MusicalWorkCategory, Composer
 
 
@@ -33,6 +34,9 @@ def library(request):
 
     # Get pre-existing composers
     context['composers'] = Composer.objects.filter(is_active=True).order_by('last_name', 'first_name', 'middle_name')
+
+    # Forms
+    context['composer_form'] = ComposerForm()
 
     # Render template
     return render(request, 'members/music/library.html', context)
