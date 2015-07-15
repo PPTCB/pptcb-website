@@ -92,12 +92,24 @@ class MusicalWork(AbstractBaseModel):
     notes = models.TextField(blank=True, default='')
 
     @property
+    def composers_long_display(self):
+        return self._person_long_display(self.composers)
+
+    @property
     def composers_short_display(self):
         return self._person_short_display(self.composers)
 
     @property
+    def arrangers_long_display(self):
+        return self._person_long_display(self.arrangers)
+
+    @property
     def arrangers_short_display(self):
         return self._person_short_display(self.arrangers)
+
+    @staticmethod
+    def _person_long_display(collection):
+        return ', '.join([person.full_name for person in collection.all()])
 
     @staticmethod
     def _person_short_display(collection):
