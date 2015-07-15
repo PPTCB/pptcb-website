@@ -57,6 +57,7 @@
             </div>
             <div role="tabpanel" class="tab-pane{% if active_tab == 'add-work' %} active{% endif %}" id="add-work">
                 <form>
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-1">
                             <div class="form-group">
@@ -144,6 +145,7 @@
             </div>
             <div role="tabpanel" class="tab-pane{% if active_tab == 'add-composer' %} active{% endif %}" id="add-composer">
                 <form>
+                    {% csrf_token %}
                     <div class="row">
                         {% for field in composer_form %}
                             <div class="col-md-2">
