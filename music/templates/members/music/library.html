@@ -8,20 +8,20 @@
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation"{% if active_tab == 'view_library' %} class="active"{% endif %}>
-                <a href="#view_library" aria-controls="view_library" role="tab" data-toggle="tab">View Library</a>
+            <li role="presentation"{% if active_tab == 'request_library' %} class="active"{% endif %}>
+                <a href="#request_library" aria-controls="request_library" role="tab" data-toggle="tab">View Library</a>
             </li>
-            <li role="presentation"{% if active_tab == 'add_work' %} class="active"{% endif %}>
-                <a href="#add_work" aria-controls="add_work" role="tab" data-toggle="tab">Add Musical Work</a>
+            <li role="presentation"{% if active_tab == 'create_musical_work' %} class="active"{% endif %}>
+                <a href="#create_musical_work" aria-controls="create_musical_work" role="tab" data-toggle="tab">Add Musical Work</a>
             </li>
-            <li role="presentation"{% if active_tab == 'add_composer' %} class="active"{% endif %}>
-                <a href="#add_composer" aria-controls="add_composer" role="tab" data-toggle="tab">Add Composer</a>
+            <li role="presentation"{% if active_tab == 'create_composer' %} class="active"{% endif %}>
+                <a href="#create_composer" aria-controls="create_composer" role="tab" data-toggle="tab">Add Composer</a>
             </li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'view_library' %} active{% endif %}" id="view_library">
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'request_library' %} active{% endif %}" id="request_library">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -55,27 +55,27 @@
                     </table>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'add_work' %} active{% endif %}" id="add_work">
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'create_musical_work' %} active{% endif %}" id="create_musical_work">
                 <form>
                     {% csrf_token %}
-                    <input type="hidden" name="function" value="add_work">
+                    <input type="hidden" name="function" value="create_musical_work">
                     <div class="row">
                         <div class="col-md-1">
                             <div class="form-group">
-                                <label for="add_work_library_id">Library ID</label>
-                                <input type="input" class="form-control" id="add_work_library_id" placeholder="{{ musical_works_next_library_id }}">
+                                <label for="create_musical_work_library_id">Library ID</label>
+                                <input type="input" class="form-control" id="create_musical_work_library_id" placeholder="{{ musical_works_next_library_id }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="add_work_name">Name of Work</label>
-                                <input type="input" class="form-control" id="add_work_name">
+                                <label for="create_musical_work_name">Name of Work</label>
+                                <input type="input" class="form-control" id="create_musical_work_name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="add_work_grade">Difficulty Grade</label>
-                                <select class="form-control" id="add_work_grade">
+                                <label for="create_musical_work_grade">Difficulty Grade</label>
+                                <select class="form-control" id="create_musical_work_grade">
                                     <option>N/A</option>
                                     {% for choice in musical_work_grade_choices %}
                                         <option value="{{ choice.value }}">{{ choice.display }}</option>
@@ -87,16 +87,16 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="add_work_notes">Notes</label>
-                                <textarea class="form-control" id="add_work_notes" rows="5" style="resize: none"></textarea>
+                                <label for="create_musical_work_notes">Notes</label>
+                                <textarea class="form-control" id="create_musical_work_notes" rows="5" style="resize: none"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="add_work_category">Category</label>
-                                        <select class="form-control" id="add_work_category">
+                                        <label for="create_musical_work_category">Category</label>
+                                        <select class="form-control" id="create_musical_work_category">
                                             {% for category in musical_work_categories %}
                                                 <option value="{{ category.pk }}">{{ category.name }}</option>
                                             {% endfor %}
@@ -108,8 +108,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group hidden">
-                                        <label for="add_work_new_category">New Category</label>
-                                        <input type="input" class="form-control" id="add_work_new_category">
+                                        <label for="create_musical_work_new_category">New Category</label>
+                                        <input type="input" class="form-control" id="create_musical_work_new_category">
                                     </div>
                                 </div>
                             </div>
@@ -118,8 +118,8 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="add_work_composers">Composers</label>
-                                <select class="form-control" id="add_work_composers" multiple size="10">
+                                <label for="create_musical_work_composers">Composers</label>
+                                <select class="form-control" id="create_musical_work_composers" multiple size="10">
                                     {% for composer in composers %}
                                         <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
                                     {% endfor %}
@@ -128,8 +128,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="add_work_arrangers">Arrangers</label>
-                                <select class="form-control" id="add_work_arrangers" multiple size="10">
+                                <label for="create_musical_work_arrangers">Arrangers</label>
+                                <select class="form-control" id="create_musical_work_arrangers" multiple size="10">
                                     {% for composer in composers %}
                                         <option value="{{ composer.pk }}">{{ composer.full_name }}</option>
                                     {% endfor %}
@@ -144,10 +144,9 @@
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane{% if active_tab == 'add_composer' %} active{% endif %}" id="add_composer">
+            <div role="tabpanel" class="tab-pane{% if active_tab == 'create_composer' %} active{% endif %}" id="create_composer">
                 <form role="form" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="function" value="add_composer">
                     <div class="row">
                         {% for field in composer_form %}
                             <div class="col-md-2">
@@ -167,7 +166,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Add New Composer</button>
+                            <button type="submit" class="btn btn-primary" name="function" value="create_composer">Add New Composer</button>
                         </div>
                     </div>
                 </form>
