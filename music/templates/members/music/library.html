@@ -14,6 +14,9 @@
             <li role="presentation">
                 <a href="#add-work" aria-controls="add-work" role="tab" data-toggle="tab">Add Musical Work</a>
             </li>
+            <li role="presentation">
+                <a href="#add-composer" aria-controls="add-composer" role="tab" data-toggle="tab">Add Composer</a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -135,6 +138,35 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-primary">Add New Musical Work</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="add-composer">
+                <form>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="add_composer_first_name">First Name</label>
+                                <input type="input" class="form-control" id="add_composer_first_name"">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="add_composer_middle_name">Middle Name</label>
+                                <input type="input" class="form-control" id="add_composer_middle_name"">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="add_composer_last_name">Last Name</label>
+                                <input type="input" class="form-control" id="add_composer_last_name"">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Add New Composer</button>
                         </div>
                     </div>
                 </form>
