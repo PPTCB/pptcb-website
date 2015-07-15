@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import ComposerForm
 from .models import MusicalWork, MusicalWorkCategory, Composer
@@ -10,10 +10,17 @@ def concerts(request):
 
 
 def library(request):
-    context = dict()
+    context = {'active_tab': 'request_library'}
 
-    # Get active tab
-    context['active_tab'] = request.POST.get('active_tab', 'view-library')
+    if request.method == 'POST':
+        if request.POST.get('function') == 'create_composer':
+            composer_form = ComposerForm(request.POST)
+            if composer_form.is_valid():
+                composer_form.save()
+                redirect('members:music:library')
+            else:
+                context['composer_form'] = composer_form
+                context['active_tab'] = 'create_composer'
 
     # Get active musical works, ordered by their library IDs
     context['musical_works'] = MusicalWork.objects.select_related('category')\
@@ -36,7 +43,8 @@ def library(request):
     context['composers'] = Composer.objects.filter(is_active=True).order_by('last_name', 'first_name', 'middle_name')
 
     # Forms
-    context['composer_form'] = ComposerForm()
+    if 'composer_form' not in context:
+        context['composer_form'] = ComposerForm()
 
     # Render template
     return render(request, 'members/music/library.html', context)
